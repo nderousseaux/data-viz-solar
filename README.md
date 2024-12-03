@@ -17,7 +17,7 @@ Then, you can launch the project with the following command:
 docker-compose up
 ```
 
-### InfluxDB CLI
+### Setting up InfluxDB CLI
 
 To access the influxdb CLI, you should have the influxdb client installed on
 your machine. 
@@ -30,4 +30,15 @@ influx config create \
   --org solar-data-viz \
   --username-password solar-data-viz:solar-data-viz \
   --active
+```
+
+Then, add the data to the influxdb database with the following commands:
+```bash
+influx write \
+	-b solar-data \
+	-f data/data-2015.txt
+
+influx write \
+	-b solar-data \
+	-f data/data-2016.txt
 ```

@@ -1,0 +1,31 @@
+# docker run --name influxdb2_tutorial \                                                                                                                                                                                                       main
+# --publish 8087:8086 \
+# --mount type=volume,source=influxdb2-tutorial-data,target=/var/lib/influxdb2 \
+# --mount type=volume,source=influxdb2-tutorial-config,target=/etc/influxdb2 \
+# --env DOCKER_INFLUXDB_INIT_MODE=setup \
+# --env DOCKER_INFLUXDB_INIT_USERNAME=influxtutorial \
+# --env DOCKER_INFLUXDB_INIT_PASSWORD=InfluxTutorial \
+# --env DOCKER_INFLUXDB_INIT_ORG=InfluxTutorial \
+# --env DOCKER_INFLUXDB_INIT_BUCKET=first_bucket influxdb:2
+
+version: '3.7'
+services:
+  influxdb:
+    image: influxdb:2
+    container_name: influxdb
+    ports:
+      - 8086:8086
+    volumes:
+      - influxdb-data:/var/lib/influxdb2
+      - influxdb-config:/etc/influxdb2
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: solar-data-viz
+      DOCKER_INFLUXDB_INIT_PASSWORD: solar-data-viz
+      DOCKER_INFLUXDB_INIT_ORG: solar-data-viz
+      DOCKER_INFLUXDB_INIT_BUCKET: solar-data
+volumes:
+  influxdb-data:
+  influxdb-config:
+
+  

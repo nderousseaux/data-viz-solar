@@ -37,6 +37,7 @@ services:
       GF_SECURITY_ADMIN_USER: solar-data-viz
       GF_SECURITY_ADMIN_PASSWORD: solar-data-viz
       GF_INSTALL_PLUGINS: volkovlabs-echarts-panel
+      GF_USERS_DEFAULT_THEME: light
       
   
 volumes:

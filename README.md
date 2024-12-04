@@ -25,20 +25,32 @@ your machine.
 Then, you can access the influxdb CLI with the following command:
 ```bash
 influx config create \
-	--config-name solar-data \
+  --config-name solar-data \
   --host-url http://localhost:8086 \
   --org solar-data-viz \
   --username-password solar-data-viz:solar-data-viz \
   --active
 ```
 
-Then, add the data to the influxdb database with the following commands:
+Then, the first time you launch the project, you should create the data into
+influxdb database with the following commands :
 ```bash
 influx write \
-	-b solar-data \
-	-f data/data-2015.txt
+  -b solar-data \
+  -f data/data-2015.txt
 
 influx write \
-	-b solar-data \
-	-f data/data-2016.txt
+  -b solar-data \
+  -f data/data-2016.txt
+```
+
+## Stop the project
+
+To stop the project, you can use the following command:
+
+```bash
+docker-compose down
+
+# or, if you want to remove the volumes
+docker-compose down -v
 ```

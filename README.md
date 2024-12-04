@@ -6,6 +6,10 @@ demand Italy for years 2015 and 2016.
 This project use influxdb to store the data and Grafana and Apache ECharts to
 vizualize the data. 
 
+![dashboard](./screenshots/overall.png)
+![mix](./screenshots/mix.gif)
+![history](./screenshots/history.gif)
+
 ## Launch the project
 
 To launch the project, you need to have docker and docker-compose installed on

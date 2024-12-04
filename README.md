@@ -33,12 +33,8 @@ influx config create \
 ```
 
 Then, the first time you launch the project, you should create the data into
-influxdb database with the following commands :
+influxdb database with the following command :
 ```bash
-influx write \
-  -b solar-data \
-  -f data/data-2015.txt
-
 influx write \
   -b solar-data \
   -f data/data-2016.txt

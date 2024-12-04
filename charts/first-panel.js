@@ -1,77 +1,63 @@
-const series = context.panel.data.series.map((s) => {
-  const sData = s.fields.find((f) => f.type === 'number').values.buffer || s.fields.find((f) => f.type === 'number').values;
-  const sTime = s.fields.find((f) => f.type === 'time').values.buffer || s.fields.find((f) => f.type === 'time').values;
 
-  return {
-    name: s.refId,
-    type: 'line',
-    showSymbol: false,
-    areaStyle: {
-      opacity: 0.1,
-    },
-    lineStyle: {
-      width: 1,
-    },
-    data: sData.map((d, i) => [sTime[i], d.toFixed(2)]),
-  };
-});
+let time = [];
+let power_gen = [];
+let power_cons = [];
+let power_import = [];
 
-/**
- * Enable Data Zoom by default
- */
-setTimeout(() => context.panel.chart.dispatchAction({
-  type: 'takeGlobalCursor',
-  key: 'dataZoomSelect',
-  dataZoomSelectActive: true,
-}), 500);
+// looking for serie named italy.power_gen
+const serie_gen = context.panel.data.series.find(serie => serie.name === 'italy.power_gen');
+const serie_cons = context.panel.data.series.find(serie => serie.name === 'italy.power_cons');
+const serie_import = context.panel.data.series.find(serie => serie.name === 'italy.power_import');
 
-/**
- * Update Time Range on Zoom
- */
-context.panel.chart.on('datazoom', function (params) {
-  const startValue = params.batch[0]?.startValue;
-  const endValue = params.batch[0]?.endValue;
-  locationService.partial({ from: startValue, to: endValue });
-});
+// Extracting the data
+time = serie_gen.fields.find(field => field.type === 'time').values.buffer || serie_gen.fields.find(field => field.type === 'time').values;
+power_gen = serie_gen.fields.find(field => field.type === 'number').values.buffer || serie_gen.fields.find(field => field.type === 'number').values;
+power_cons = serie_cons.fields.find(field => field.type === 'number').values.buffer || serie_cons.fields.find(field => field.type === 'number').values;
+power_import = serie_import.fields.find(field => field.type === 'number').values.buffer || serie_import.fields.find(field => field.type === 'number').values;
+
+// Cut after comma
+power_gen = power_gen.map(value => value.toFixed(0));
+power_cons = power_cons.map(value => value.toFixed(0));
+power_import = power_import.map(value => value.toFixed(0));
+
+// Readable time, without the time, just the date
+time = time.map(ts => new Date(ts).toLocaleString());
+time = time.map(ts => ts.split(',')[0]);
 
 return {
-  backgroundColor: 'transparent',
+  legend: {
+    top: 'bottom',
+    data: ['Power Generation (MWh)', 'Power Consumption (MWh)', 'Power Import/Export (MWh)']
+  },
   tooltip: {
     trigger: 'axis',
   },
-  legend: {
-    left: '0',
-    bottom: '0',
-    data: context.panel.data.series.map((s) => s.refId),
-    textStyle: {
-      color: 'rgba(128, 128, 128, .9)',
-    },
-  },
-  toolbox: {
-    feature: {
-      dataZoom: {
-        yAxisIndex: 'none',
-        icon: {
-          zoom: 'path://',
-          back: 'path://',
-        },
-      },
-      saveAsImage: {},
-    }
-  },
   xAxis: {
-    type: 'time',
+    data: time
   },
   yAxis: {
-    type: 'value',
-    min: 'dataMin',
+    axisLabel: {
+      formatter: '{value} MWh'
+    }
   },
-  grid: {
-    left: '2%',
-    right: '2%',
-    top: '2%',
-    bottom: 24,
-    containLabel: true,
-  },
-  series,
+  series: [
+    {
+      name: 'Power Generation (MWh)',
+      data: power_gen,
+      type: 'line',
+      areaStyle: {}
+    },
+    {
+      name: 'Power Consumption (MWh)',
+      data: power_cons,
+      type: 'line',
+      areaStyle: {}
+    },
+    {
+      name: 'Power Import/Export (MWh)',
+      data: power_import,
+      type: 'line',
+      areaStyle: {}
+    }
+  ]
 };

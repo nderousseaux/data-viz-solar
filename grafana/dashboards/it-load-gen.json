@@ -112,8 +112,8 @@
     },
     {
       "datasource": {
-        "type": "datasource",
-        "uid": "grafana"
+        "type": "influxdb",
+        "uid": "P951FEA4DE68E13C5"
       },
       "description": "History of production of solar power and consumption of power in Italy",
       "fieldConfig": {
@@ -121,7 +121,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 12,
+        "h": 15,
         "w": 24,
         "x": 0,
         "y": 15
@@ -140,7 +140,7 @@
           "key": "",
           "plugin": "AMap.Scale,AMap.ToolBar"
         },
-        "getOption": "const series = context.panel.data.series.map((s) => {\n  const sData = s.fields.find((f) => f.type === 'number').values.buffer || s.fields.find((f) => f.type === 'number').values;\n  const sTime = s.fields.find((f) => f.type === 'time').values.buffer || s.fields.find((f) => f.type === 'time').values;\n  \n  return {\n    name: s.refId,\n    type: 'line',\n    showSymbol: false,\n    areaStyle: {\n      opacity: 0.1,\n    },\n    lineStyle: {\n      width: 1,\n    },\n    data: sData.map((d, i) => [sTime[i], d.toFixed(2)]),\n  };\n});\n\n/**\n * Enable Data Zoom by default\n */\nsetTimeout(() => context.panel.chart.dispatchAction({\n  type: 'takeGlobalCursor',\n  key: 'dataZoomSelect',\n  dataZoomSelectActive: true,\n}), 500);\n\n/**\n * Update Time Range on Zoom\n */\ncontext.panel.chart.on('datazoom', function (params) {\n  const startValue = params.batch[0]?.startValue;\n  const endValue = params.batch[0]?.endValue;\n  locationService.partial({ from: startValue, to: endValue });\n});\n\nreturn {\n  backgroundColor: 'transparent',\n  tooltip: {\n    trigger: 'axis',\n  },\n  legend: {\n    left: '0',\n    bottom: '0',\n    data: context.panel.data.series.map((s) => s.refId),\n    textStyle: {\n      color: 'rgba(128, 128, 128, .9)',\n    },\n  },\n  toolbox: {\n    feature: {\n      dataZoom: {\n        yAxisIndex: 'none',\n        icon: {\n          zoom: 'path://',\n          back: 'path://',\n        },\n      },\n      saveAsImage: {},\n    }\n  },\n  xAxis: {\n    type: 'time',\n  },\n  yAxis: {\n    type: 'value',\n    min: 'dataMin',\n  },\n  grid: {\n    left: '2%',\n    right: '2%',\n    top: '2%',\n    bottom: 24,\n    containLabel: true,\n  },\n  series,\n};",
+        "getOption": "\nlet time = [];\nlet power_gen = [];\nlet power_cons = [];\nlet power_import = [];\n\n// looking for serie named italy.power_gen\nconst serie_gen = context.panel.data.series.find(serie => serie.name === 'italy.power_gen');\nconst serie_cons = context.panel.data.series.find(serie => serie.name === 'italy.power_cons');\nconst serie_import = context.panel.data.series.find(serie => serie.name === 'italy.power_import');\n\n// Extracting the data\ntime = serie_gen.fields.find(field => field.type === 'time').values.buffer || serie_gen.fields.find(field => field.type === 'time').values;\npower_gen = serie_gen.fields.find(field => field.type === 'number').values.buffer || serie_gen.fields.find(field => field.type === 'number').values;\npower_cons = serie_cons.fields.find(field => field.type === 'number').values.buffer || serie_cons.fields.find(field => field.type === 'number').values;\npower_import = serie_import.fields.find(field => field.type === 'number').values.buffer || serie_import.fields.find(field => field.type === 'number').values;\n\n// Cut after comma\npower_gen = power_gen.map(value => value.toFixed(0));\npower_cons = power_cons.map(value => value.toFixed(0));\npower_import = power_import.map(value => value.toFixed(0));\n\n// Readable time, without the time, just the date\ntime = time.map(ts => new Date(ts).toLocaleString());\ntime = time.map(ts => ts.split(',')[0]);\n\nreturn {\n  legend: {\n    top: 'bottom',\n    data: ['Power Generation (MWh)', 'Power Consumption (MWh)', 'Power Import/Export (MWh)']\n  },\n  tooltip: {\n    trigger: 'axis',\n  },\n  xAxis: {\n    data: time\n  },\n  yAxis: {\n    axisLabel: {\n      formatter: '{value} MWh'\n    }\n  },\n  series: [\n    {\n      name: 'Power Generation (MWh)',\n      data: power_gen,\n      type: 'line',\n      areaStyle: {}\n    },\n    {\n      name: 'Power Consumption (MWh)',\n      data: power_cons,\n      type: 'line',\n      areaStyle: {}\n    },\n    {\n      name: 'Power Import/Export (MWh)',\n      data: power_import,\n      type: 'line',\n      areaStyle: {}\n    }\n  ]\n};",
         "google": {
           "callback": "gmapReady",
           "key": ""
@@ -161,11 +161,64 @@
       "targets": [
         {
           "datasource": {
-            "type": "datasource",
-            "uid": "grafana"
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
           },
-          "queryType": "randomWalk",
-          "refId": "A"
+          "groupBy": [
+            {
+              "params": [
+                "1w"
+              ],
+              "type": "time"
+            }
+          ],
+          "hide": false,
+          "measurement": "italy",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"ItSolarGen\") AS \"power_gen\", mean(\"ItLoad\") AS \"power_cons\", mean(\"ItSolarGen\") - mean(\"ItLoad\") AS \"power_import\"\nFROM \"italy\" WHERE $timeFilter GROUP BY time(1w)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "ItSolarGen"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  "power_gen"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "ItLoad"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              },
+              {
+                "params": [
+                  "power_cons"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": []
         }
       ],
       "title": "History",

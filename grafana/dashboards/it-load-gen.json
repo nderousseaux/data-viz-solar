@@ -23,9 +23,30 @@
   "links": [],
   "panels": [
     {
+      "datasource": {
+        "uid": "P951FEA4DE68E13C5"
+      },
       "description": "Overall informations about power consumption and production.",
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
         "overrides": []
       },
       "gridPos": {
@@ -36,17 +57,862 @@
       },
       "id": 2,
       "options": {
-        "code": {
-          "language": "plaintext",
-          "showLineNumbers": false,
-          "showMiniMap": false
+        "infinitePan": false,
+        "inlineEditing": true,
+        "panZoom": false,
+        "root": {
+          "background": {
+            "color": {
+              "fixed": "transparent"
+            }
+          },
+          "border": {
+            "color": {
+              "fixed": "dark-green"
+            },
+            "radius": 21
+          },
+          "constraint": {
+            "horizontal": "left",
+            "vertical": "top"
+          },
+          "elements": [
+            {
+              "background": {
+                "color": {
+                  "fixed": "#fec05a"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#fec05a"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 7",
+              "oneClickMode": "off",
+              "placement": {
+                "height": 127,
+                "left": 40,
+                "rotation": 0,
+                "top": 355,
+                "width": 301
+              },
+              "type": "rectangle"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "left",
+                "color": {
+                  "fixed": "#000000"
+                },
+                "size": 30,
+                "text": {
+                  "field": "italy.other",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "valign": "bottom"
+              },
+              "connections": [],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 10",
+              "oneClickMode": "off",
+              "placement": {
+                "height": 39,
+                "left": 61,
+                "rotation": 0,
+                "top": 380,
+                "width": 160
+              },
+              "type": "metric-value"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "#5971c0"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#000000"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 11",
+              "oneClickMode": "off",
+              "placement": {
+                "height": 127,
+                "left": 40,
+                "rotation": 0,
+                "top": 190,
+                "width": 301
+              },
+              "type": "rectangle"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "left",
+                "color": {
+                  "fixed": "rgba(36, 41, 46, 1)"
+                },
+                "size": 20,
+                "text": {
+                  "fixed": "Solar Production"
+                },
+                "valign": "top"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 14",
+              "oneClickMode": "off",
+              "placement": {
+                "height": 29,
+                "left": 60,
+                "rotation": 0,
+                "top": 256,
+                "width": 260
+              },
+              "type": "text"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "left",
+                "color": {
+                  "fixed": "#000000"
+                },
+                "size": 30,
+                "text": {
+                  "field": "italy.gen",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "valign": "bottom"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 13",
+              "oneClickMode": "off",
+              "placement": {
+                "height": 39,
+                "left": 60,
+                "rotation": 0,
+                "top": 215,
+                "width": 160
+              },
+              "type": "metric-value"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "#D9D9D9"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "#000000"
+                },
+                "valign": "middle"
+              },
+              "connections": [],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 1",
+              "oneClickMode": "off",
+              "placement": {
+                "height": 127,
+                "left": 41,
+                "top": 25,
+                "width": 301
+              },
+              "type": "rectangle"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "#D9D9D9"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "left",
+                "color": {
+                  "fixed": "#000000"
+                },
+                "size": 30,
+                "text": {
+                  "field": "italy.cons",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "valign": "bottom"
+              },
+              "connections": [],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 4",
+              "oneClickMode": "off",
+              "placement": {
+                "height": 39,
+                "left": 62,
+                "top": 50,
+                "width": 260
+              },
+              "type": "metric-value"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "left",
+                "color": {
+                  "fixed": "rgba(36, 41, 46, 1)"
+                },
+                "size": 20,
+                "text": {
+                  "fixed": "Total Consumption"
+                },
+                "valign": "top"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 5",
+              "oneClickMode": "off",
+              "placement": {
+                "height": 29,
+                "left": 62,
+                "top": 91,
+                "width": 260
+              },
+              "type": "text"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "rgba(36, 41, 46, 1)"
+                },
+                "size": 20,
+                "text": {
+                  "fixed": "GWh"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 6",
+              "oneClickMode": "off",
+              "placement": {
+                "height": 50,
+                "left": 150,
+                "top": 50,
+                "width": 100
+              },
+              "type": "text"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "left",
+                "color": {
+                  "fixed": "rgba(36, 41, 46, 1)"
+                },
+                "size": 20,
+                "text": {
+                  "fixed": "Other Sources"
+                },
+                "valign": "top"
+              },
+              "connections": [],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 8",
+              "oneClickMode": "off",
+              "placement": {
+                "height": 29,
+                "left": 60,
+                "rotation": 0,
+                "top": 420,
+                "width": 260
+              },
+              "type": "text"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "rgba(36, 41, 46, 1)"
+                },
+                "size": 20,
+                "text": {
+                  "fixed": "GWh"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 12",
+              "oneClickMode": "off",
+              "placement": {
+                "height": 50,
+                "left": 130,
+                "rotation": 0,
+                "top": 215,
+                "width": 100
+              },
+              "type": "text"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "rgba(36, 41, 46, 1)"
+                },
+                "size": 20,
+                "text": {
+                  "fixed": "GWh"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 9",
+              "oneClickMode": "off",
+              "placement": {
+                "height": 50,
+                "left": 156,
+                "rotation": 0,
+                "top": 380,
+                "width": 100
+              },
+              "type": "text"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "fill": {
+                  "fixed": "#fec05a"
+                },
+                "path": {
+                  "fixed": "img/icons/unicons/analysis.svg",
+                  "mode": "fixed"
+                }
+              },
+              "connections": [
+                {
+                  "color": {
+                    "fixed": "#ffbf59"
+                  },
+                  "path": "straight",
+                  "size": {
+                    "fixed": 3,
+                    "max": 10,
+                    "min": 1
+                  },
+                  "source": {
+                    "x": 0.9998677268117753,
+                    "y": 0.0002350374871587665
+                  },
+                  "sourceOriginal": {
+                    "x": 621.4375,
+                    "y": 88.984375
+                  },
+                  "target": {
+                    "x": -0.5,
+                    "y": 1
+                  },
+                  "targetName": "Element 17",
+                  "targetOriginal": {
+                    "x": 725,
+                    "y": 326
+                  },
+                  "vertices": [
+                    {
+                      "x": 1,
+                      "y": 0
+                    }
+                  ]
+                }
+              ],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 15",
+              "oneClickMode": "off",
+              "placement": {
+                "height": 100,
+                "left": 484,
+                "rotation": 295,
+                "top": 39,
+                "width": 100
+              },
+              "type": "icon"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "fill": {
+                  "fixed": "#5971c0"
+                },
+                "path": {
+                  "fixed": "img/icons/unicons/sun.svg",
+                  "mode": "fixed"
+                }
+              },
+              "connections": [
+                {
+                  "color": {
+                    "fixed": "#5870bf"
+                  },
+                  "path": "straight",
+                  "size": {
+                    "fixed": 3,
+                    "max": 10,
+                    "min": 1
+                  },
+                  "source": {
+                    "x": -1,
+                    "y": 0
+                  },
+                  "sourceOriginal": {
+                    "x": 932,
+                    "y": 94
+                  },
+                  "target": {
+                    "x": 0.54,
+                    "y": 0.98
+                  },
+                  "targetName": "Element 17",
+                  "targetOriginal": {
+                    "x": 777,
+                    "y": 327
+                  },
+                  "vertices": [
+                    {
+                      "x": 1,
+                      "y": -0.02145922746781116
+                    }
+                  ]
+                }
+              ],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 16",
+              "oneClickMode": "off",
+              "placement": {
+                "height": 100,
+                "left": 902,
+                "rotation": 0,
+                "top": 39,
+                "width": 99
+              },
+              "type": "icon"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "fill": {
+                  "fixed": "text"
+                },
+                "path": {
+                  "fixed": "img/icons/unicons/home-alt.svg",
+                  "mode": "fixed"
+                }
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 17",
+              "oneClickMode": "off",
+              "placement": {
+                "height": 100,
+                "left": 700,
+                "rotation": 0,
+                "top": 326,
+                "width": 100
+              },
+              "type": "icon"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "left",
+                "color": {
+                  "fixed": "#000000"
+                },
+                "size": 30,
+                "text": {
+                  "field": "italy.gen",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "valign": "bottom"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 18",
+              "oneClickMode": "off",
+              "placement": {
+                "height": 39,
+                "left": 792,
+                "rotation": 0,
+                "top": 176,
+                "width": 160
+              },
+              "type": "metric-value"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "rgba(36, 41, 46, 1)"
+                },
+                "size": 20,
+                "text": {
+                  "fixed": "GWh"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 19",
+              "oneClickMode": "off",
+              "placement": {
+                "height": 50,
+                "left": 786,
+                "rotation": 0,
+                "top": 206,
+                "width": 100
+              },
+              "type": "text"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "left",
+                "color": {
+                  "fixed": "#000000"
+                },
+                "size": 30,
+                "text": {
+                  "field": "italy.other",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "valign": "bottom"
+              },
+              "connections": [],
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 20",
+              "oneClickMode": "off",
+              "placement": {
+                "height": 39,
+                "left": 600,
+                "rotation": 0,
+                "top": 176,
+                "width": 160
+              },
+              "type": "metric-value"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "rgba(36, 41, 46, 1)"
+                },
+                "size": 20,
+                "text": {
+                  "fixed": "GWh"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "links": [],
+              "name": "Element 21",
+              "oneClickMode": "off",
+              "placement": {
+                "height": 50,
+                "left": 613,
+                "rotation": 0,
+                "top": 206,
+                "width": 100
+              },
+              "type": "text"
+            }
+          ],
+          "name": "Element 1733351559179",
+          "oneClickMode": "off",
+          "placement": {
+            "height": 100,
+            "left": 0,
+            "rotation": 0,
+            "top": 0,
+            "width": 100
+          },
+          "type": "frame"
         },
-        "content": "# Title\n\nFor markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)",
-        "mode": "markdown"
+        "showAdvancedTypes": true
       },
       "pluginVersion": "11.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "italy",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \nsum(\"ItLoad\")/1000 AS \"cons\", \nsum(\"ItSolarGen\")/1000 AS \"gen\",\nsum(\"ItLoad\")/1000 - sum(\"ItSolarGen\")/1000 AS \"other\"\n\nFROM \"italy\" WHERE $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "ItLoad"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
       "title": "Informations",
-      "type": "text"
+      "type": "canvas"
     },
     {
       "datasource": {

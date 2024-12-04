@@ -30,7 +30,7 @@
       },
       "gridPos": {
         "h": 15,
-        "w": 15,
+        "w": 14,
         "x": 0,
         "y": 0
       },
@@ -50,65 +50,109 @@
     },
     {
       "datasource": {
-        "type": "datasource",
-        "uid": "grafana"
+        "type": "influxdb",
+        "uid": "P951FEA4DE68E13C5"
       },
       "description": "Ratio between solar energy and other energy for Italy",
       "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": []
-        },
+        "defaults": {},
         "overrides": []
       },
       "gridPos": {
         "h": 15,
-        "w": 9,
-        "x": 15,
+        "w": 10,
+        "x": 14,
         "y": 0
       },
       "id": 3,
       "options": {
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
+        "baidu": {
+          "callback": "bmapReady",
+          "key": ""
         },
-        "pieType": "pie",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+        "editor": {
+          "format": "auto"
         },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
+        "editorMode": "code",
+        "gaode": {
+          "key": "",
+          "plugin": "AMap.Scale,AMap.ToolBar"
+        },
+        "getOption": "let gen = 0;\nlet cons = 0;\n\nconst gen_series = context.panel.data.series.find(serie => serie.name === 'italy.gen');\nconst cons_series = context.panel.data.series.find(serie => serie.name === 'italy.cons');\n\n// Extracting the data\ngen = gen_series.fields.find(field => field.type === 'number').values.buffer || gen_series.fields.find(field => field.type === 'number').values[0];\ncons = cons_series.fields.find(field => field.type === 'number').values.buffer || cons_series.fields.find(field => field.type === 'number').values[0];\n\nlet other_sources = cons - gen;\n\n// Convert into GWh, but keep not floating \ngen = gen / 1000;\nother_sources = other_sources / 1000;\ncons = cons / 1000;\ngen = gen.toFixed(0);\nother_sources = other_sources.toFixed(0);\ncons = cons.toFixed(0);\n\nlet gen_percents = (gen / cons) * 100;\nlet other_percents = (other_sources / cons) * 100;\n\n\nlet data = [\n  { value: gen, name: 'Solar Power (GWh) - ' + gen_percents.toFixed(0) + '%' },\n  { value: other_sources, name: 'Other Sources (GWh) - ' + other_percents.toFixed(0) + '%', itemStyle: { color: '#fec05a' } }\n];\n\nreturn {\n  tooltip: {\n    trigger: 'item'\n  },\n  series: [\n    {\n      type: 'pie',\n      radius: ['40%', '70%'],\n      padAngle: 5,\n      itemStyle: {\n        borderRadius: 10\n      },\n      label: {\n        show: true,\n        fontSize: 20,\n      },\n      emphasis: {\n        label: {\n          show: true,\n          fontSize: 24,\n          fontWeight: 'bold'\n        }\n      },\n      labelLine: {\n        show: false\n      },\n      data: data\n    }\n  ]\n};",
+        "google": {
+          "callback": "gmapReady",
+          "key": ""
+        },
+        "map": "none",
+        "renderer": "canvas",
+        "themeEditor": {
+          "config": "{}",
+          "name": "default"
+        },
+        "visualEditor": {
+          "code": "return {\n  dataset: context.editor.dataset,\n  series: context.editor.series,\n  xAxis: {\n    type: 'time',\n  },\n  yAxis: {\n    type: 'value',\n    min: 'dataMin',\n  },\n}\n",
+          "dataset": [],
+          "series": []
         }
       },
-      "pluginVersion": "11.3.1",
+      "pluginVersion": "6.5.0",
       "targets": [
         {
           "datasource": {
-            "type": "datasource",
-            "uid": "grafana"
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
           },
-          "queryType": "randomWalk",
-          "refId": "A"
+          "groupBy": [],
+          "measurement": "italy",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"ItLoad\") FROM \"italy\" WHERE $timeFilter",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "ItLoad"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              },
+              {
+                "params": [
+                  "cons"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "ItSolarGen"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              },
+              {
+                "params": [
+                  "gen"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "tags": []
         }
       ],
       "title": "Energy mix",
-      "type": "piechart"
+      "type": "volkovlabs-echarts-panel"
     },
     {
       "datasource": {

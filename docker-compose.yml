@@ -32,10 +32,11 @@ services:
       - 3000:3000
     volumes:
       - grafana-storage:/var/lib/grafana
-      - ./grafana-provisioning:/etc/grafana/provisioning
+      - ./grafana:/etc/grafana/provisioning
     environment:
       GF_SECURITY_ADMIN_USER: solar-data-viz
       GF_SECURITY_ADMIN_PASSWORD: solar-data-viz
+      GF_INSTALL_PLUGINS: volkovlabs-echarts-panel
       
   
 volumes:

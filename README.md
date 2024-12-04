@@ -44,6 +44,13 @@ influx write \
   -f data/data-2016.txt
 ```
 
+### Access Grafana
+
+To access dashboards, you can go to the following URL:
+[http://localhost:3000/dashboards](http://localhost:3000/dashboards).
+The default login and password are `solar-data-viz`.
+
+
 ## Stop the project
 
 To stop the project, you can use the following command:
@@ -54,3 +61,14 @@ docker-compose down
 # or, if you want to remove the volumes
 docker-compose down -v
 ```
+
+## Doing modifications
+
+If you want to edit the dashboard, you can edit it in the Grafana interface, 
+and then export the dashboard to the `dashboards` folder.
+
+### The `Charts` folder
+
+The `Charts` folder contains the Apache ECharts code to vizualize the data.
+It's not directly used in grafana, so if you want to update the charts, you
+should copy the code from the `Charts` folder to the Grafana dashboard.
